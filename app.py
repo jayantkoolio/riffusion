@@ -39,11 +39,15 @@ def process_message(body):
     negative_prompt = message["negative_prompt"]
     path, spec = predict(prompt, negative_prompt)
 
-while True:
-    messages = queue.receive_messages(MaxNumberOfMessages=1)
-    if messages:
-        for message in messages:
-            process_message(message.body)
-            message.delete()
-    else:
-        break
+# while True:
+#     messages = queue.receive_messages(MaxNumberOfMessages=1)
+#     if messages:
+#         for message in messages:
+#             process_message(message.body)
+#             message.delete()
+#     else:
+#        break
+        
+prompt = "solo piano piece, classical"
+negative_prompt = "drums"
+path, spec = predict(prompt, negative_prompt)
