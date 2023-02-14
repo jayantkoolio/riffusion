@@ -5,6 +5,7 @@ from io import BytesIO
 from IPython.display import Audio
 import boto3
 import json
+import os
 
 pipe = DiffusionPipeline.from_pretrained("riffusion/riffusion-model-v1")
 pipe = pipe.to("cuda")
@@ -29,6 +30,7 @@ def predict(prompt, negative_prompt, filename):
    wav.export(filename , format='wav')
    saved_filename_with_format = FOLDER + filename
    s3.Bucket(BUCKET).upload_file(filename, saved_filename_with_format)
+   os.remove(filename)
 
 def process_message(body):
     message = json.loads(body)
